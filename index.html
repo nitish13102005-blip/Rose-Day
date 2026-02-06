@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Rose Day</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to bottom, #ffe6f0, #fff);
+  overflow-x: hidden;
+  text-align: center;
+}
+
+/* Headings */
+h1 { margin-top: 20px; font-size: 2.2em; }
+h2 { margin-top: 5px; font-size: 1.5em; }
+
+/* Couple Image */
+.couple {
+  width: 85%;
+  max-width: 420px;
+  margin: 20px auto;
+  border-radius: 22px;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.25);
+}
+
+/* Message */
+.message {
+  margin: 25px;
+  padding: 18px;
+  font-size: 1.05em;
+  background: rgba(255,255,255,0.85);
+  border-radius: 18px;
+}
+
+/* Floating flowers */
+.flower {
+  position: fixed;
+  font-size: 26px;
+  animation: floatUp 12s linear infinite;
+  cursor: pointer;
+  transition: transform 0.6s ease, opacity 0.6s ease;
+}
+
+.flower.bloom {
+  animation: none;
+  transform: scale(2.4);
+  opacity: 0;
+  filter: drop-shadow(0 0 16px pink);
+}
+
+/* Cherry blossom petals */
+.petal {
+  position: fixed;
+  font-size: 18px;
+  animation: petalFall 2.6s ease-out forwards;
+}
+
+/* Butterflies */
+.butterfly {
+  position: fixed;
+  font-size: 26px;
+  animation: fly 14s linear infinite;
+  pointer-events: none;
+}
+
+/* Tap message */
+#tapMsg {
+  opacity: 0.7;
+  font-size: 0.9em;
+}
+
+/* Animations */
+@keyframes floatUp {
+  from { bottom: -60px; }
+  to { bottom: 110%; }
+}
+
+@keyframes petalFall {
+  from { opacity: 1; transform: scale(1); }
+  to {
+    opacity: 0;
+    transform: translate(
+      calc(-50px + 100px * var(--x)),
+      140px
+    ) scale(0.3);
+  }
+}
+
+@keyframes fly {
+  from { left: -20%; top: 80%; }
+  to { left: 120%; top: 10%; }
+}
+</style>
+</head>
+
+<body>
+
+<h1>🪻🌺 Happy Rose Day ♾️💜</h1>
+<h2>💕 Madam ji 🧿🫶🏻</h2>
+
+<img class="couple" src="judy-nick.jpg" alt="Nick and Judy">
+
+<div class="message">
+This message is for <b>Madam ji🌺💕🧿</b> by <b>Nikku Bandr</b><br><br>
+My forever 🤌🏻💕 ap hmesha ase hi khush and happy raho  
+flowers ki tarha khus rho and ap ke face pr  
+khusiya se bhare hyi smile bloom krte rhy 🫶🏻🥹🤌🏻🌺😘🫂🧿
+</div>
+
+<!-- Music -->
+<audio id="bgMusic" loop>
+  <source src="mere-liye-tum-kafi-ho.mp3" type="audio/mpeg">
+</audio>
+<p id="tapMsg">🔊 Tap anywhere to play music</p>
+
+<script>
+// 🎵 Play music after first tap
+document.body.addEventListener("click", () => {
+  const music = document.getElementById("bgMusic");
+  music.play();
+  document.getElementById("tapMsg").style.display = "none";
+}, { once: true });
+
+// 🌸🌹🌷 MULTI FLOWERS
+const flowers = ["🌸","🌹","🌷","🌼"];
+
+for (let i = 0; i < 22; i++) {
+  let f = document.createElement("div");
+  f.className = "flower";
+  f.innerHTML = flowers[Math.floor(Math.random()*flowers.length)];
+  f.style.left = Math.random()*100 + "vw";
+  f.style.bottom = "-60px";
+  f.style.animationDuration = (8 + Math.random()*6) + "s";
+
+  f.addEventListener("click", () => {
+    f.classList.add("bloom");
+
+    for (let j = 0; j < 7; j++) {
+      let p = document.createElement("div");
+      p.className = "petal";
+      p.innerHTML = "🌸";
+      p.style.left = f.style.left;
+      p.style.bottom = f.getBoundingClientRect().bottom + "px";
+      p.style.setProperty("--x", Math.random());
+      document.body.appendChild(p);
+      setTimeout(() => p.remove(), 2600);
+    }
+    setTimeout(() => f.remove(), 600);
+  });
+
+  document.body.appendChild(f);
+}
+
+// 🦋 MULTI-COLORED BUTTERFLIES
+const colors = ["#ff69b4", "#ffb6c1", "#dda0dd", "#87cefa", "#98fb98"];
+
+for (let i = 0; i < 7; i++) {
+  let b = document.createElement("div");
+  b.className = "butterfly";
+  b.innerHTML = "🦋";
+  b.style.color = colors[Math.floor(Math.random()*colors.length)];
+  b.style.filter = "drop-shadow(0 0 6px currentColor)";
+  b.style.top = Math.random()*100 + "vh";
+  b.style.animationDuration = (10 + Math.random()*6) + "s";
+  document.body.appendChild(b);
+}
+</script>
+
+</body>
+</html>
