@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Rose Day</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to bottom, #ffe6f0, #fff);
+  overflow: hidden;
+  text-align: center;
+}
+
+/* Tap overlay */
+#tapLayer {
+  position: fixed;
+  inset: 0;
+  background: rgba(255,230,240,0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  z-index: 9999;
+}
+
+/* Headings */
+h1 { margin-top: 20px; font-size: 2.2em; }
+h2 { margin-top: 5px; font-size: 1.5em; }
+
+/* Couple image */
+.couple {
+  width: 85%;
+  max-width: 420px;
+  margin: 20px auto;
+  border-radius: 22px;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.25);
+}
+
+/* Message */
+.message {
+  margin: 20px;
+  padding: 18px;
+  background: rgba(255,255,255,0.92);
+  border-radius: 18px;
+  font-size: 1.05em;
+}
+
+/* Floating items */
+.float {
+  position: absolute;
+  font-size: 26px;
+  bottom: -60px;
+  animation: floatUp linear forwards;
+  cursor: pointer;
+}
+
+@keyframes floatUp {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-120vh); opacity: 0; }
+}
+
+/* Bloom petals */
+.petal {
+  position: absolute;
+  font-size: 18px;
+  animation: petal 2.5s ease-out forwards;
+}
+
+@keyframes petal {
+  to {
+    transform: translate(
+      calc(-40px + 80px * var(--x)),
+      120px
+    ) scale(0.3);
+    opacity: 0;
+  }
+}
+
+/* Butterflies */
+.butterfly {
+  position: absolute;
+  font-size: 26px;
+  animation: fly 14s linear infinite;
+}
+
+@keyframes fly {
+  from { left: -10%; top: 80%; }
+  to { left: 110%; top: 10%; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- TAP TO START -->
+<div id="tapLayer">💜 Tap anywhere to start the magic 💜</div>
+
+<h1>🪻🌺 Happy Rose Day ♾️💜</h1>
+<h2>💕 Madam ji 🧿🫶🏻</h2>
+
+<img class="couple" src="judy-nick.jpg" alt="Nick and Judy">
+
+<div class="message">
+<b>This message is for Madam ji🌺💕🧿 by Nikku Bandr</b><br><br>
+
+My forever 🤌🏻💕 ap hmesha ase hi khush and happy raho,  
+flowers ki tarha khus rho and ap ke face pr  
+khusiya se bhare hyi smile bloom krte rhy 🫶🏻🥹🤌🏻🌺😘🫂🧿<br><br>
+
+🫂🧿 <b>Tuse sade jin div waja ho</b> 💜<br>
+💐🫂💋 <b>Happy Rose Day My Love Kannu Baby</b> 🧸🧿🥹
+</div>
+
+<audio id="bgMusic" loop>
+  <source src="mere-liye-tum-kafi-ho.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+/* 🎵 Music – guaranteed play */
+document.getElementById("tapLayer").onclick = () => {
+  document.getElementById("bgMusic").play();
+  document.getElementById("tapLayer").remove();
+};
+
+/* 🌸🌹🌷💕💫🪷❣️ Floating items */
+const items = ["🌸","🌹","🌷","🌼","💕","💫","🪷","❣️"];
+
+setInterval(() => {
+  let f = document.createElement("div");
+  f.className = "float";
+  f.innerHTML = items[Math.floor(Math.random()*items.length)];
+  f.style.left = Math.random()*100 + "vw";
+  f.style.animationDuration = (8 + Math.random()*6) + "s";
+
+  f.onclick = () => {
+    for (let i=0;i<6;i++){
+      let p=document.createElement("div");
+      p.className="petal";
+      p.innerHTML="🌸";
+      p.style.left=f.style.left;
+      p.style.bottom="50%";
+      p.style.setProperty("--x",Math.random());
+      document.body.appendChild(p);
+      setTimeout(()=>p.remove(),2500);
+    }
+    f.remove();
+  };
+
+  document.body.appendChild(f);
+  setTimeout(()=>f.remove(),14000);
+}, 800);
+
+/* 🦋 Multi-colored butterflies */
+const colors=["#ff69b4","#dda0dd","#87cefa","#98fb98","#ffb6c1"];
+
+for(let i=0;i<6;i++){
+  let b=document.createElement("div");
+  b.className="butterfly";
+  b.innerHTML="🦋";
+  b.style.color=colors[Math.floor(Math.random()*colors.length)];
+  b.style.filter="drop-shadow(0 0 6px currentColor)";
+  b.style.top=Math.random()*100+"vh";
+  b.style.animationDuration=(10+Math.random()*6)+"s";
+  document.body.appendChild(b);
+}
+</script>
+
+</body>
+</html>
