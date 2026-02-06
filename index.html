@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Rose Day</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background: linear-gradient(to bottom,#ffe6f0,#fff);
+  position: relative;
+  min-height: 200vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: center;
+  scroll-behavior: smooth;
+}
+
+/* Tap layer */
+#tapLayer{
+  position:fixed;
+  inset:0;
+  background:rgba(255,230,240,0.92);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.2em;
+  z-index:9999;
+}
+
+/* Headings */
+h1{margin-top:20px;font-size:2.2em;}
+h2{margin-top:5px;font-size:1.5em;}
+
+/* Couple image */
+.couple{
+  width:85%;
+  max-width:420px;
+  margin:20px auto;
+  border-radius:22px;
+  box-shadow:0 12px 35px rgba(0,0,0,0.25);
+}
+
+/* Message */
+.message{
+  margin:20px;
+  padding:18px;
+  background:rgba(255,255,255,0.95);
+  border-radius:18px;
+  font-size:1.05em;
+}
+
+/* Text animation */
+.line{
+  opacity:0;
+  transform:translateY(12px);
+  animation:reveal 1.2s ease forwards;
+}
+@keyframes reveal{
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* Romantic photo frame */
+.photo-frame{
+  margin:25px auto 60px;
+  width:85%;
+  max-width:360px;
+  padding:14px;
+  border-radius:26px;
+  background:
+    radial-gradient(circle at top left,#ffd6e8,transparent 40%),
+    radial-gradient(circle at bottom right,#e0c3ff,transparent 45%),
+    linear-gradient(135deg,#ffb6c1,#dda0dd);
+  box-shadow:
+    0 0 20px rgba(255,182,193,0.8),
+    0 0 35px rgba(221,160,221,0.6);
+  position:relative;
+}
+
+.photo-frame::before,
+.photo-frame::after{
+  content:"✨ 🌸 ✨";
+  position:absolute;
+  font-size:18px;
+}
+.photo-frame::before{top:-10px;left:12px;}
+.photo-frame::after{bottom:-10px;right:12px;}
+
+.photo-frame img{
+  width:100%;
+  border-radius:18px;
+  display:block;
+}
+
+/* Floating items */
+.float{
+  position:fixed;
+  font-size:28px;
+  bottom:-60px;
+  animation:floatUp linear forwards;
+  cursor:pointer;
+  z-index: 1;
+}
+@keyframes floatUp{
+  to{transform:translateY(-120vh);opacity:0;}
+}
+
+/* Petals */
+.petal{
+  position:fixed;
+  font-size:24px;
+  animation:petal 2.8s ease-out forwards;
+  z-index:2;
+}
+@keyframes petal{
+  to{
+    transform:translate(
+      calc(-60px + 120px * var(--x)),
+      150px
+    ) scale(0.5);
+    opacity:0;
+  }
+}
+
+/* Butterflies */
+.butterfly{
+  position:fixed;
+  font-size:28px;
+  animation:fly linear infinite;
+  z-index: 2;
+}
+@keyframes fly{
+  from{left:-10%; top:80%;}
+  to{left:110%; top:10%;}
+}
+</style>
+</head>
+
+<body>
+
+<div id="tapLayer">💜 Tap anywhere to start the magic 💜</div>
+
+<h1>🪻🌺 Happy Rose Day ♾️💜</h1>
+<h2>💕 Madam ji 🧿🫶🏻</h2>
+
+<img class="couple" src="judy-nick.jpg" alt="Nick and Judy">
+
+<div class="message">
+  <div class="line">This message is for <b>Madam ji🌺💕🧿</b> by <b>Nikku Bandr</b></div><br>
+  <div class="line">My forever 🤌🏻💕 ap hmesha ase hi khush and happy raho,</div>
+  <div class="line">flowers ki tarha khus rho and ap ke face pr</div>
+  <div class="line">khusiya se bhare hyi smile bloom krte rhy 🫶🏻🥹🤌🏻🌺😘🫂🧿</div><br>
+  <div class="line">🫂🧿 <b>Tuse sade jin div waja ho</b> 💜</div>
+  <div class="line">💐🫂💋 <b>Happy Rose Day My Love Kannu Baby</b> 🧸🧿🥹</div>
+</div>
+
+<div class="photo-frame">
+  <img src="us.jpg" alt="Us together">
+</div>
+
+<audio id="bgMusic" loop>
+  <source src="mere-liye-tum-kafi-ho.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+/* Music */
+document.getElementById("tapLayer").onclick=()=>{
+  document.getElementById("bgMusic").play();
+  document.getElementById("tapLayer").remove();
+};
+
+/* Text animation */
+document.querySelectorAll(".line").forEach((el,i)=>{
+  el.style.animationDelay=(i*0.6)+"s";
+});
+
+/* Floating flowers + emojis */
+const items=["🌸","🌹","🌷","🌼","💕","💫","🪷","❣️"];
+setInterval(()=>{
+  let f=document.createElement("div");
+  f.className="float";
+  f.innerHTML=items[Math.floor(Math.random()*items.length)];
+  f.style.left=Math.random()*90 + "vw";
+  f.style.animationDuration=(10+Math.random()*5)+"s";
+  f.style.fontSize=(20+Math.random()*16)+"px";
+
+  f.onclick=()=>{
+    for(let i=0;i<8;i++){
+      let p=document.createElement("div");
+      p.className="petal";
+      p.innerHTML="🌸";
+      p.style.left=f.style.left;
+      p.style.bottom="50%";
+      p.style.setProperty("--x",Math.random());
+      document.body.appendChild(p);
+      setTimeout(()=>p.remove(),2800);
+    }
+    f.remove();
+  };
+
+  document.body.appendChild(f);
+  setTimeout(()=>f.remove(),15000);
+},600);
+
+/* Butterflies */
+const colors=["#ff69b4","#dda0dd","#87cefa","#98fb98","#ffb6c1"];
+for(let i=0;i<6;i++){
+  let b=document.createElement("div");
+  b.className="butterfly";
+  b.innerHTML="🦋";
+  b.style.color=colors[Math.floor(Math.random()*colors.length)];
+  b.style.filter="drop-shadow(0 0 6px currentColor)";
+  b.style.top=Math.random()*80+"vh";
+  b.style.animationDuration=(12+Math.random()*6)+"s";
+  document.body.appendChild(b);
+}
+</script>
+
+</body>
+</html>
